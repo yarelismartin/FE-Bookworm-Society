@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import { useAuth } from '@/utils/context/authContext';
 import Loading from '@/components/Loading';
 import SignIn from '@/components/SignIn';
-import NavBar from '@/components/NavBar';
+import UnauthenticatedNavbar from '@/components/UnauthenticatedNavbar';
+import RegistrationForm from '@/components/forms/RegistrationForm';
+import AuthenticatedNavbar from '../../components/AuthenticatedNavbar';
 
 function ViewDirectorBasedOnUserAuthStatus({ children }) {
-  const { user, userLoading } = useAuth();
+  const { user, userLoading, updateUser } = useAuth();
 
   // if user state is null, then show loader
   if (userLoading) {
@@ -16,8 +18,9 @@ function ViewDirectorBasedOnUserAuthStatus({ children }) {
   if (user) {
     return (
       <>
-        <NavBar /> {/* NavBar only visible if user is logged in and is in every view */}
-        {children}
+        <UnauthenticatedNavbar /> {/* NavBar only visible if user is logged in and is in every view */}
+        {user.user == null ? '' : <AuthenticatedNavbar />}
+        <div className="container">{user.id == null ? <RegistrationForm user={user} updateUser={updateUser} /> : { ...children }}</div>
       </>
     );
   }
