@@ -2,9 +2,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { signOut } from '../utils/auth';
 
-export default function AuthenticatedNavbar() {
+export default function AuthenticatedNavbar({ userId }) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -18,6 +19,9 @@ export default function AuthenticatedNavbar() {
             <Link className="nav-link" href="/">
               Home
             </Link>
+            <Link className="nav-link" href={`/users/${userId}`}>
+              Profile
+            </Link>
           </Nav>
 
           <Button variant="danger" onClick={signOut}>
@@ -28,3 +32,7 @@ export default function AuthenticatedNavbar() {
     </Navbar>
   );
 }
+
+AuthenticatedNavbar.propTypes = {
+  userId: PropTypes.number,
+};
