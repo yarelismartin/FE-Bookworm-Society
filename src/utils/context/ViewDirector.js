@@ -16,11 +16,11 @@ function ViewDirectorBasedOnUserAuthStatus({ children }) {
 
   // what the user should see if they are logged in
   if (user) {
+    const isNotRegistered = user.id == null;
     return (
       <>
-        <UnauthenticatedNavbar /> {/* NavBar only visible if user is logged in and is in every view */}
-        {user.user == null ? '' : <AuthenticatedNavbar />}
-        <div className="container">{user.id == null ? <RegistrationForm user={user} updateUser={updateUser} /> : { ...children }}</div>
+        {isNotRegistered ? <UnauthenticatedNavbar /> : <AuthenticatedNavbar />}
+        <div className="container">{isNotRegistered ? <RegistrationForm user={user} updateUser={updateUser} /> : children}</div>
       </>
     );
   }
