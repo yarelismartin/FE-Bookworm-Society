@@ -20,13 +20,16 @@ export default function BookClubCard({ bookClubObj, showDeleteButton }) {
           <button type="button" className="btn btn-primary" onClick={() => router.push(`/bookclubs/${bookClubObj.id}`)}>
             View Club
           </button>
-          <button type="button" className="btn btn-primary" onClick={() => router.push(`/send to edit form`)}>
-            Edit Club
-          </button>
+
           {showDeleteButton && (
-            <button type="button" className="btn btn-primary" onClick={() => router.push(`/deleye endpoint called`)}>
-              Delete
-            </button>
+            <>
+              <button type="button" className="btn btn-primary" onClick={() => router.push(`/bookclubs/${bookClubObj.id}/edit-bookclub`)}>
+                Edit Club
+              </button>
+              <button type="button" className="btn btn-primary" onClick={() => router.push(`/deleye endpoint called`)}>
+                Delete
+              </button>
+            </>
           )}
         </div>
       </div>
