@@ -19,7 +19,7 @@ function ViewDirectorBasedOnUserAuthStatus({ children }) {
     const isNotRegistered = user.id == null;
     return (
       <>
-        {isNotRegistered ? <UnauthenticatedNavbar /> : <AuthenticatedNavbar />}
+        {isNotRegistered ? <UnauthenticatedNavbar /> : <AuthenticatedNavbar userId={user.id} />}
         <div className="container">{isNotRegistered ? <RegistrationForm user={user} updateUser={updateUser} /> : children}</div>
       </>
     );
