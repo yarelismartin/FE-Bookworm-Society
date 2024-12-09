@@ -6,7 +6,7 @@
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
-import getSingleUser from '../../../api/UserData';
+import { getSingleUser } from '../../../api/UserData';
 
 export default function Profile() {
   const { userId } = useParams();

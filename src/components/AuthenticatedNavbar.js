@@ -19,6 +19,9 @@ export default function AuthenticatedNavbar({ userId }) {
             <Link className="nav-link" href="/">
               Home
             </Link>
+            <Link className="nav-link" href={`/users/${userId}/my-clubs`}>
+              My Clubs
+            </Link>
             <Link className="nav-link" href={`/users/${userId}`}>
               Profile
             </Link>

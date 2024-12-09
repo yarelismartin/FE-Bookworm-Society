@@ -15,4 +15,23 @@ const getSingleUser = (userId) =>
       .catch(reject);
   });
 
-export default getSingleUser;
+const getUsersClubs = (userId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/users/${userId}/my-clubs`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          resolve(data);
+        } else {
+          resolve([]);
+        }
+      })
+      .catch(reject);
+  });
+
+export { getSingleUser, getUsersClubs };
