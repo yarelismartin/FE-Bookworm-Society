@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '@/utils/context/authContext';
 import { Card, CardHeader, CardBody, Typography, Button, Avatar, CardFooter } from '@material-tailwind/react';
-import { addUserToClub, getSingleBookClub } from '../api/BookClubData';
+import { addUserToClub, getSingleBookClub, removeUserFromClub } from '../api/BookClubData';
 
 export default function BookClubDetails({ bookClubId }) {
   const [bookClub, setBookClub] = useState({});
@@ -16,6 +16,12 @@ export default function BookClubDetails({ bookClubId }) {
 
   const handleAddingUser = () => {
     addUserToClub(bookClubId, user.id).then(() => {
+      getBookClub();
+    });
+  };
+
+  const handleRemovingUser = () => {
+    removeUserFromClub(bookClubId, user.id).then(() => {
       getBookClub();
     });
   };
@@ -44,15 +50,16 @@ export default function BookClubDetails({ bookClubId }) {
             {bookClub.description}
           </Typography>
           <CardFooter className="pt-0">
-            {bookClub.isMemberOrHost ? (
-              <Button ripple={false} fullWidth className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
-                Leave This Club
-              </Button>
-            ) : (
-              <Button ripple={false} fullWidth onClick={handleAddingUser} className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
-                Become A Member
-              </Button>
-            )}
+            {user.id !== bookClub.host?.id &&
+              (bookClub.isMemberOrHost ? (
+                <Button ripple={false} fullWidth onClick={handleRemovingUser} className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
+                  Leave This Club
+                </Button>
+              ) : (
+                <Button ripple={false} fullWidth onClick={handleAddingUser} className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
+                  Become A Member
+                </Button>
+              ))}
           </CardFooter>
         </CardBody>
       </Card>
