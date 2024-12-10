@@ -14,7 +14,7 @@ export default function BookClubTabs({ children }) {
   };
 
   return (
-    <Tabs>
+    <Tabs value="Book Club Hub">
       <TabsHeader>
         {children.map((child, index) => (
           <Tab key={`${child.props.label}-${index}`} value={child.props.label} onClick={() => handleTabChange(child.props.label)}>

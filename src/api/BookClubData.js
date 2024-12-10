@@ -43,4 +43,30 @@ const updateBookClub = (payload, bookClubId) =>
       .catch(reject);
   });
 
-export { updateBookClub, createBookClub, getSingleBookClub };
+const getBookClubsHaveRead = (bookClubId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/bookclubs/${bookClubId}/have-read`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+const addUserToClub = (bookClubId, userId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/bookclubs/${bookClubId}/add-user/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { updateBookClub, createBookClub, getSingleBookClub, getBookClubsHaveRead, addUserToClub };

@@ -4,15 +4,20 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '@/utils/context/authContext';
 import { Card, CardHeader, CardBody, Typography, Button, Avatar, CardFooter } from '@material-tailwind/react';
-import { getSingleBookClub } from '../api/BookClubData';
+import { addUserToClub, getSingleBookClub } from '../api/BookClubData';
 
 export default function BookClubDetails({ bookClubId }) {
   const [bookClub, setBookClub] = useState({});
-
   const { user } = useAuth();
 
   const getBookClub = () => {
     getSingleBookClub(bookClubId, user.id).then(setBookClub);
+  };
+
+  const handleAddingUser = () => {
+    addUserToClub(bookClubId, user.id).then(() => {
+      getBookClub();
+    });
   };
 
   useEffect(() => {
@@ -39,9 +44,15 @@ export default function BookClubDetails({ bookClubId }) {
             {bookClub.description}
           </Typography>
           <CardFooter className="pt-0">
-            <Button ripple={false} fullWidth className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
-              Become A Member
-            </Button>
+            {bookClub.isMemberOrHost ? (
+              <Button ripple={false} fullWidth className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
+                Leave This Club
+              </Button>
+            ) : (
+              <Button ripple={false} fullWidth onClick={handleAddingUser} className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
+                Become A Member
+              </Button>
+            )}
           </CardFooter>
         </CardBody>
       </Card>
@@ -102,5 +113,4 @@ BookClubDetails.propTypes = {
   bookClubId: PropTypes.number,
 };
 
-/*
-isMemberOrHost = bookClub.Members.Any(m => m.Id == userId) || bookClub.Host.Id == userId, */
+/* pass is a memeber or host to the tab page and have useeffect call it and pass th ebool value if its true then show all tabs otherwise dont */

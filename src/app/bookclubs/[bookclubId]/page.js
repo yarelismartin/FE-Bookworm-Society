@@ -11,7 +11,7 @@ export default function BookClub({ params }) {
     <div className="container mt-5">
       <BookClubTabs>
         <BookClubDetails key="Book Club Hub" label="Book Club Hub" bookClubId={bookclubId} />
-        <HaveRead label="Have Read" key="Have Read" />
+        <HaveRead label="Have Read" key="Have Read" bookClubId={bookclubId} />
       </BookClubTabs>
     </div>
   );
