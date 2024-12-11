@@ -4,22 +4,23 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/utils/context/authContext';
 import { useRouter } from 'next/navigation';
-import createBookClub from '../../api/BookClubData';
-/* import PropTypes from 'prop-types';
- *//* import { ChevronDownIcon } from '@heroicons/react/16/solid'
- */
+import PropTypes from 'prop-types';
+import { ChevronDownIcon } from '@heroicons/react/16/solid';
+import { createBookClub, updateBookClub } from '../../api/BookClubData';
 
-export default function BookClubForm() {
+const initialState = {
+  name: '',
+  meetUpType: '',
+  description: '',
+  imageUrl: '',
+  hostId: 0,
+};
+
+export default function BookClubForm({ bookClubObj }) {
   const [previewUrl, setPreviewUrl] = useState('');
   const { user } = useAuth();
   const router = useRouter();
-  const [formInput, setFormInput] = useState({
-    name: '',
-    meetUpType: '',
-    description: '',
-    imageUrl: '',
-    hostId: 0,
-  });
+  const [formInput, setFormInput] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,19 +47,35 @@ export default function BookClubForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createBookClub({ ...formInput, hostId: user.id }).then(() => {
-      router.push(`/users/${user.id}/my-clubs`);
-      console.warn({ ...formInput, hostId: user.id });
-    });
+    if (bookClubObj?.id) {
+      if (formInput.hostId !== bookClubObj.host?.id) {
+        const confirmChange = window.confirm('Are you sure you no longer want to be the host of this club? This decision cannot be reversed.');
+        if (!confirmChange) return;
+      }
+      updateBookClub(formInput, bookClubObj.id).then(() => {
+        router.push(`/users/${user.id}/my-clubs`);
+      });
+    } else {
+      createBookClub({ ...formInput, hostId: user.id }).then(() => {
+        router.push(`/users/${user.id}/my-clubs`);
+        console.warn({ ...formInput, hostId: user.id });
+      });
+    }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (bookClubObj?.id) {
+      setFormInput({ ...bookClubObj, hostId: bookClubObj.host?.id });
+    } else {
+      setFormInput(initialState);
+    }
+  }, [bookClubObj]);
 
   return (
     <form className="container my-5" onSubmit={handleSubmit}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base/7 font-semibold text-gray-900">Create a Book Club</h2>
+          <h2 className="text-base/7 font-semibold text-gray-900">{bookClubObj?.id ? 'Update Your Book Club' : 'Create a Book Club'}</h2>
           {/* Image URL */}
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="col-span-full">
@@ -101,27 +118,30 @@ export default function BookClubForm() {
               </div>
               <p className="mt-3 text-sm/6 text-gray-600">Write a few sentences about this book club.</p>
             </div>
+            {bookClubObj?.id && (
+              <div className="sm:col-span-3">
+                <label htmlFor="country" className="block text-sm/6 font-medium text-gray-900">
+                  Book Club Host
+                </label>
+                <p className="mt-1 text-sm/6 text-gray-600">If you select to give over this club to someone else then you will lose access to this bookclub.</p>
 
-            {/*  <div className="sm:col-span-3">
-              <label htmlFor="country" className="block text-sm/6 font-medium text-gray-900">
-                Book Club Host
-              </label>
-              <div className="mt-2 grid grid-cols-1">
-                <select
-                  id="host"
-                  name="host"
-                  autoComplete="host-name"
-                  className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                >
-                  <option>You</option>
-                  <option>Person1</option>
-                  <option>Person2</option>
-                </select>
-                <ChevronDownIcon
-                  aria-hidden="true"
-                  className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" />
+                <div className="mt-2 grid grid-cols-1">
+                  <select name="hostId" onChange={handleChange} value={formInput.hostId} autoComplete="host-name" required className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    {/* Current Host Option */}
+                    <option key={bookClubObj.host?.id} value={bookClubObj.host?.id}>
+                      {bookClubObj.host?.username}{' '}
+                    </option>
+                    {/* Member Options */}
+                    {bookClubObj.members?.map((member) => (
+                      <option key={member.id} value={member.id}>
+                        {member.username}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDownIcon aria-hidden="true" className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" />
+                </div>
               </div>
-            </div> */}
+            )}
           </div>
         </div>
       </div>
@@ -164,8 +184,25 @@ export default function BookClubForm() {
   );
 }
 
-/* BookClubForm.propTypes = {
-  
-}; */
+BookClubForm.propTypes = {
+  bookClubObj: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    meetUpType: PropTypes.string,
+    description: PropTypes.string,
+    imageUrl: PropTypes.string,
+    hostId: PropTypes.number,
+    host: PropTypes.shape({
+      id: PropTypes.number,
+      username: PropTypes.string,
+    }),
+    members: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        username: PropTypes.string,
+      }),
+    ),
+  }),
+};
 /* When the user is creating the club they will be the host. 
 But when we edit then they should be a drop down that shows that garbs all the members in that club so the user can select another host if they want. we want to make sure to incude the host nam in that drop down too though */

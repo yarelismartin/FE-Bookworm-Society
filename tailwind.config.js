@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const withMT = require('@material-tailwind/react/utils/withMT');
+
+module.exports = withMT({
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
@@ -8,4 +10,4 @@ module.exports = {
     // eslint-disable-next-line import/no-extraneous-dependencies, global-require
     require('daisyui'),
   ],
-};
+});
