@@ -82,4 +82,16 @@ const removeUserFromClub = (bookClubId, userId) =>
       .catch(reject);
   });
 
-export { updateBookClub, createBookClub, getSingleBookClub, getBookClubsHaveRead, addUserToClub, removeUserFromClub };
+const deletBookClub = (bookClubId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/bookclubs/${bookClubId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { updateBookClub, createBookClub, getSingleBookClub, getBookClubsHaveRead, addUserToClub, removeUserFromClub, deletBookClub };
