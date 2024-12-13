@@ -94,4 +94,17 @@ const deletBookClub = (bookClubId) =>
       .catch(reject);
   });
 
-export { updateBookClub, createBookClub, getSingleBookClub, getBookClubsHaveRead, addUserToClub, removeUserFromClub, deletBookClub };
+const getCommunityPosts = (bookClubId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/bookclubs/${bookClubId}/community-posts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { updateBookClub, createBookClub, getSingleBookClub, getBookClubsHaveRead, addUserToClub, removeUserFromClub, deletBookClub, getCommunityPosts };
