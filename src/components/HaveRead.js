@@ -19,9 +19,12 @@ export default function HaveRead({ bookClubId }) {
   }, []);
 
   return (
-    <div label="Have Read">
+    <div label="Have Read" className="flex flex-wrap gap-4 justify-center">
       {haveRead.map((book) => (
-        <Card className="w-[45%]" key={book.id}>
+        <Card
+          className="w-full sm:w-72 md:w-72 lg:w-72 xl:w-72 p-2" // Reduced size to w-72
+          key={book.id}
+        >
           <CardHeader shadow={false} floated={false} className="h-60">
             <img alt="book" src={book.imageUrl} className="h-full w-full object-cover" />
           </CardHeader>
@@ -31,7 +34,6 @@ export default function HaveRead({ bookClubId }) {
                 {book.title}
               </Typography>
             </div>
-
             <Typography variant="small" color="gray" className="font-normal opacity-75">
               By: {book.author}
             </Typography>
