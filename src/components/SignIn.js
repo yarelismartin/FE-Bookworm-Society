@@ -1,20 +1,21 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import Image from 'next/image';
 import { signIn } from '../utils/auth';
+import logo from '../../public/images/Book Club Logo.png';
 
 function Signin() {
   return (
     <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className="d-flex flex-column justify-content-center align-items-center"
       style={{
-        height: '90vh',
         padding: '30px',
-        maxWidth: '400px',
         margin: '0 auto',
+        height: '100vh',
+        backgroundColor: '#497dcb',
       }}
     >
-      <h1>Hi there!</h1>
-      <p>Click the button below to login!</p>
+      <Image src={logo} alt="Book Club Logo" width={500} height={300} layout="intrinsic" />
       <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
         Sign In
       </Button>

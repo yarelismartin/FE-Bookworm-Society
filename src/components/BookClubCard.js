@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -15,28 +17,39 @@ export default function BookClubCard({ bookClubObj, showDeleteButton, onUpdate }
     }
   };
   return (
-    <div className="card glass w-96" key={bookClubObj.id}>
-      <figure>
-        <img src={bookClubObj.imageUrl} alt="car!" />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">{bookClubObj.name}</h2>
-        <p>{bookClubObj.description}</p>
-        <div className="card-actions justify-end">
-          <button type="button" className="btn btn-primary" onClick={() => router.push(`/bookclubs/${bookClubObj.id}`)}>
-            View Club
-          </button>
-
+    <div className="book-club-card">
+      <div className="frosted-overlay" />
+      <div className="card-content">
+        {/* Header */}
+        <div className="card-header">
+          <h2>{bookClubObj.name}</h2>
           {showDeleteButton && (
-            <>
-              <button type="button" className="btn btn-primary" onClick={() => router.push(`/bookclubs/${bookClubObj.id}/edit-bookclub`)}>
-                Edit Club
-              </button>
-              <button type="button" className="btn btn-primary" onClick={handleDeletingBookClub}>
-                Delete
-              </button>
-            </>
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="ellipsis">
+                ...
+              </div>
+              <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow cursor-pointer">
+                <li>
+                  <button type="button" onClick={() => router.push(`/bookclubs/${bookClubObj.id}/edit-bookclub`)}>
+                    Edit
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={handleDeletingBookClub}>
+                    Delete
+                  </button>
+                </li>
+              </ul>
+            </div>
           )}
+        </div>
+        {/* Description */}
+        <p className="card-description">{bookClubObj.description}</p>
+        {/* Actions */}
+        <div className="card-actions">
+          <button type="button" className="blue-button" onClick={() => router.push(`/bookclubs/${bookClubObj.id}`)}>
+            Visit Club
+          </button>
         </div>
       </div>
     </div>

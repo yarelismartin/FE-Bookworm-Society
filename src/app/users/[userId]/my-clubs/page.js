@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
@@ -25,38 +27,18 @@ export default function MyClubs() {
   }, [userId]);
 
   return (
-    <div>
-      <button type="button" className="btn btn-primary" onClick={() => router.push(`/bookclubs/add-bookclub`)}>
-        Create Book Club
-      </button>
+    <div className="container mx-auto pt-4 pb-5">
+      <div className="flex justify-center mb-4">
+        <button type="button" className="blue-button" onClick={() => router.push(`/bookclubs/add-bookclub`)}>
+          Create Book Club
+        </button>
+      </div>
 
-      <h3>Clubs You Are a Member Of</h3>
-      {bookClubs.members.length > 0 ? (
-        bookClubs.members.map((club) => (
-          <BookClubCard
-            bookClubObj={club}
-            key={club.id}
-            showDeleteButton={false}
-            onUpdate={getMyClubs} // Pass refresh handler
-          />
-        ))
-      ) : (
-        <p>You are not a member of any clubs.</p>
-      )}
+      <h3 className="text-center text-xl font-semibold mb-4">Clubs You Are Hosting</h3>
+      <div className="flex flex-wrap flex-row gap-2 justify-center">{bookClubs.hosts.length > 0 ? bookClubs.hosts.map((club) => <BookClubCard bookClubObj={club} key={club.id} showDeleteButton onUpdate={getMyClubs} />) : <p className="text-center w-full">You are not hosting any clubs.</p>}</div>
 
-      <h3>Clubs You Are Hosting</h3>
-      {bookClubs.hosts.length > 0 ? (
-        bookClubs.hosts.map((club) => (
-          <BookClubCard
-            bookClubObj={club}
-            key={club.id}
-            showDeleteButton
-            onUpdate={getMyClubs} // Pass refresh handler
-          />
-        ))
-      ) : (
-        <p>You are not hosting any clubs.</p>
-      )}
+      <h3 className="text-center text-xl font-semibold mb-4 mt-3">Clubs You Are a Member Of</h3>
+      <div className="flex flex-wrap flex-row gap-2 justify-center">{bookClubs.members.length > 0 ? bookClubs.members.map((club) => <BookClubCard bookClubObj={club} key={club.id} showDeleteButton={false} onUpdate={getMyClubs} />) : <p className="text-center w-full">You are not a member of any clubs.</p>}</div>
     </div>
   );
 }

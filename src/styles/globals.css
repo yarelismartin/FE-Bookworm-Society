@@ -1,16 +1,144 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, Arsenal SC, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+body {
+  background-color: #ede7e7;
+  font-family: "Arsenal SC", serif;
+  min-height: 100vh;
+}
+:root {
+  --default-font: "Lora", serif;  
+  --navbar-font: "Arsenal SC", serif;
+  --blue: #497dcb;
+  --white-text: #ede7e7;
 }
 
-body {
-  background-color: #FFFFFF;
-  height: 100%
+/* NavBar */
+.nav-font{
+  font-weight: 400;
+}
+.navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-family: "Arsenal SC", serif !important;
+}
+.custom-shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.baby-blue{
+  background-color: var(--blue);
+}
+
+.white-text{
+  color: var(--white-text);
+}
+
+/* Card Wrapper */
+.book-club-card {
+  position: relative;
+  margin: 5px;
+  width: 90%; 
+  max-width: 600px;
+  padding: 1rem;
+  overflow: hidden;
+  background: white;
+  border-radius: 0.75rem; 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(16px);
+  border: none;
+}
+
+@media (min-width: 768px) {
+  .book-club-card {
+    width: 40%; /* Wider on medium screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .book-club-card {
+    width: 40%; /* Standard width on large screens */
+  }
+}
+
+/* Card Content */
+.card-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-header h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-header .ellipsis {
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Description */
+.card-description {
+  flex-grow: 1;
+  color: #555;
+}
+
+/* Actions */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.blue-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--blue); 
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.blue-button:hover {
+  background-color: #4a90c2;
+}
+
+
+.copy-btn {
+  border: 2px solid #497dcb; /* Border color */
+  color: #497dcb; /* Default text color */
+  transition: color 0.3s ease; /* Smooth transition for the color change */
+  background-color: #ede7e7;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  width: 40%;
+}
+
+.copy-btn:hover {
+  transform: scale(1.05);
+  color: #497dcb; /* Change text color to blue on hover */
+  background-color: #ede7e7;
+  border: none;
 }
