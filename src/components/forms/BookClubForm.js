@@ -72,7 +72,7 @@ export default function BookClubForm({ bookClubObj }) {
   }, [bookClubObj]);
 
   return (
-    <form className="container my-5" onSubmit={handleSubmit}>
+    <form className="container mt-5 pb-5" onSubmit={handleSubmit}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base/7 font-semibold text-gray-900">{bookClubObj?.id ? 'Update Your Book Club' : 'Create a Book Club'}</h2>

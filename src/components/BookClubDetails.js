@@ -1,12 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '@/utils/context/authContext';
-import { Card, CardHeader, CardBody, Typography, Button, Avatar, CardFooter } from '@material-tailwind/react';
+import { Card, CardBody, Typography, Button, Avatar, CardFooter } from '@material-tailwind/react';
+import { format } from 'date-fns';
 import { addUserToClub, getSingleBookClub, removeUserFromClub } from '../api/BookClubData';
+import BookCard from './BookCard';
 
-export default function BookClubDetails({ bookClubId, onMembershipStatusChange }) {
+export default function BookClubDetails({ bookClubId, onMembershipStatusChange, updateHostStatus }) {
   const [bookClub, setBookClub] = useState({});
   const { user } = useAuth();
 
@@ -14,6 +19,7 @@ export default function BookClubDetails({ bookClubId, onMembershipStatusChange }
     getSingleBookClub(bookClubId, user.id).then((data) => {
       setBookClub(data);
       onMembershipStatusChange(data.isMemberOrHost);
+      updateHostStatus(data.host.id === user.id);
     });
   };
 
@@ -35,11 +41,8 @@ export default function BookClubDetails({ bookClubId, onMembershipStatusChange }
 
   return (
     <div label="Have Read">
-      <div className="flex flex-wrap gap-6 justify-start mb-3">
-        <Card className="max-w-[48rem] flex flex-col md:flex-row">
-          <CardHeader shadow={false} floated={false} className="m-0 w-full md:w-2/5 shrink-0 rounded-b-none md:rounded-r-none">
-            <img alt={bookClub.name} src={bookClub.imageUrl} className="h-full w-full object-cover" />
-          </CardHeader>
+      <div className="flex flex-wrap gap-6 justify-start mb-3 items-start">
+        <Card className="max-w-[48rem] flex flex-col">
           <CardBody className="flex flex-col">
             <Typography variant="h4" color="blue-gray" className="mb-2">
               {bookClub.name}
@@ -48,12 +51,12 @@ export default function BookClubDetails({ bookClubId, onMembershipStatusChange }
               {bookClub.meetUpType}
             </Typography>
             <Typography variant="h6" color="gray" className="mb-4 uppercase">
-              {bookClub.dateCreated}
+              Joined: {bookClub.dateCreated ? format(new Date(bookClub.dateCreated), 'MMM d, yyyy') : 'N/A'}
             </Typography>
-            <Typography color="gray" className="mb-8 font-normal">
+            <Typography color="gray" className="mb-3 font-normal">
               {bookClub.description}
             </Typography>
-            <CardFooter className="pt-0">
+            <CardFooter className="pt-3">
               {user.id !== bookClub.host?.id &&
                 (bookClub.isMemberOrHost ? (
                   <Button ripple={false} fullWidth onClick={handleRemovingUser} className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
@@ -66,57 +69,42 @@ export default function BookClubDetails({ bookClubId, onMembershipStatusChange }
                 ))}
             </CardFooter>
           </CardBody>
-        </Card>
-        <Card className="sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-[20%] p-2">
-          <CardHeader shadow={false} floated={false} className="h-60">
-            <img alt="book" src={bookClub.book?.imageUrl} className="h-full w-full object-cover" />
-          </CardHeader>
-          <CardBody>
-            <div className="mb-2 flex items-center justify-between">
-              <Typography color="blue-gray" className="font-medium">
-                {bookClub.book?.title}
+
+          {/* Members Card Section */}
+          <CardBody className="mt-1 pt-0">
+            <div className="mb-4 flex items-center justify-between">
+              <Typography variant="h5" color="blue-gray">
+                Members
               </Typography>
             </div>
-
-            <Typography variant="small" color="gray" className="font-normal opacity-75">
-              By: {bookClub.book?.author}
-            </Typography>
-          </CardBody>
-        </Card>
-      </div>
-      <Card className="w-96">
-        <CardBody>
-          <div className="mb-4 flex items-center justify-between">
-            <Typography variant="h5" color="blue-gray" className="">
-              Memebers
-            </Typography>
-          </div>
-          <div className="divide-y divide-gray-200">
-            <div key={bookClub.host?.id} className="flex items-center justify-between pb-3 pt-3 last:pb-0">
-              <div className="flex items-center gap-x-3">
-                <Avatar size="sm" src={bookClub.host?.imageUrl} alt={bookClub.host?.imageUrl} />
-                <div>
-                  <Typography variant="small" color="gray">
-                    @{bookClub.host?.username}
-                  </Typography>
-                </div>
-              </div>
-            </div>
-            {bookClub.members?.map((member) => (
-              <div key={member.id} className="flex items-center justify-between pb-3 pt-3 last:pb-0">
+            <div className="divide-y divide-gray-200">
+              <div key={bookClub.host?.id} className="flex items-center justify-between pb-3 pt-3 last:pb-0">
                 <div className="flex items-center gap-x-3">
-                  <Avatar size="sm" src={member.imageUrl} alt={member.imageUrl} />
+                  <Avatar size="sm" src={bookClub.host?.imageUrl} alt={bookClub.host?.imageUrl} />
                   <div>
                     <Typography variant="small" color="gray">
-                      @{member.username}
+                      @{bookClub.host?.username}
                     </Typography>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardBody>
-      </Card>
+              {bookClub.members?.map((member) => (
+                <div key={member.id} className="flex items-center justify-between pb-3 pt-3 last:pb-0">
+                  <div className="flex items-center gap-x-3">
+                    <Avatar size="sm" src={member.imageUrl} alt={member.imageUrl} />
+                    <div>
+                      <Typography variant="small" color="gray">
+                        @{member.username}
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardBody>
+        </Card>
+        {bookClub.book && <BookCard bookObj={bookClub.book} showCurrentRead />}
+      </div>
     </div>
   );
 }
@@ -124,6 +112,7 @@ export default function BookClubDetails({ bookClubId, onMembershipStatusChange }
 BookClubDetails.propTypes = {
   bookClubId: PropTypes.number,
   onMembershipStatusChange: PropTypes.func.isRequired,
+  updateHostStatus: PropTypes.func.isRequired,
 };
 
 /* pass is a memeber or host to the tab page and have useeffect call it and pass th ebool value if its true then show all tabs otherwise dont */

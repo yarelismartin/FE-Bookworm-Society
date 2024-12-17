@@ -1,41 +1,59 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import { Arsenal } from 'next/font/google';
 import Link from 'next/link';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 import { signOut } from '../utils/auth';
+import logo from '../../public/images/Book Club Logo.png';
 
-export default function AuthenticatedNavbar({ userId }) {
+const arsenal = Arsenal({ subsets: ['latin'], weight: ['400'] });
+export default function AuthenticatedNavbar({ userId, userImage }) {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Link passHref href="/" className="navbar-brand">
-          CHANGE ME
-        </Link>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
-            <Link className="nav-link" href="/">
-              Home
-            </Link>
-            <Link className="nav-link" href={`/users/${userId}/my-clubs`}>
-              My Clubs
-            </Link>
-            <Link className="nav-link" href={`/users/${userId}`}>
-              Profile
-            </Link>
-          </Nav>
+    <nav className={`bg-[#497dcb] ${arsenal.className} custom-shadow`}>
+      <div className="mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Left Section: Logo and Navigation */}
+          <div className="flex items-center">
+            <Image src={logo} alt="Book Club Logo" width={120} height={50} />
 
-          <Button variant="danger" onClick={signOut}>
-            Sign Out
-          </Button>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+            <div className="hidden sm:block ml-4">
+              <Link href={`/users/${userId}/my-clubs`} className="text-[#ede7e7] px-3 py-2 text-sm font-medium rounded-md hover:bg-blue-700">
+                My Clubs
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Section: Profile Dropdown */}
+          <div className="relative flex items-center">
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img alt="User Avatar" src={userImage} />
+                </div>
+              </div>
+              <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-50">
+                <li>
+                  <Link href={`/users/${userId}`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <button type="button" onClick={signOut} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
 
 AuthenticatedNavbar.propTypes = {
   userId: PropTypes.number,
+  userImage: PropTypes.string,
 };
