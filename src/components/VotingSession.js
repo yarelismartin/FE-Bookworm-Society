@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/utils/context/authContext';
 import PropTypes from 'prop-types';
@@ -47,7 +48,7 @@ export default function VotingSession({ bookClubId, hostOfClub }) {
             </button>
             <dialog id="my_modal_1" className="modal">
               <div className="modal-box">
-                <h3 className="font-bold text-lg">Click Submit to Stat this Voting Session!</h3>
+                <h3 className="font-bold text-lg">Click Submit to Start this Voting Session!</h3>
                 <div className="modal-action">
                   <VotingSessionForm bookClubId={bookClubId} modalClose={closeModal} onUpdate={fetchVotingSession} />
                 </div>

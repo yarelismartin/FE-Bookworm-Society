@@ -15,4 +15,32 @@ const getSinglePost = (postId) =>
       .catch(reject);
   });
 
-export default getSinglePost;
+const createAPost = (payload) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/posts`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then((resp) => resolve(resp.json()))
+      .catch(reject);
+  });
+
+const updatePost = (payload, postId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/posts/${postId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getSinglePost, createAPost, updatePost };

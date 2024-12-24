@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { format, formatDistanceToNow } from 'date-fns';
-import getSinglePost from '../../../../../api/PostData';
+import { getSinglePost } from '../../../../../api/PostData';
 
 export default function PostDetail({ params }) {
   const [post, setPost] = useState({});
