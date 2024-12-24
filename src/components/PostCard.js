@@ -6,9 +6,16 @@ import { TiPinOutline, TiPin } from 'react-icons/ti';
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from '@/utils/context/authContext';
 import PostForm from './forms/PostForm';
+import { deletePost } from '../api/PostData';
 
 export default function PostCard({ post, clubId, onUpdate }) {
   const { user } = useAuth();
+
+  const handleDelete = () => {
+    if (window.confirm("Click 'OK' if you would like to move forward with deleting this post?")) {
+      deletePost(post.id).then(onUpdate);
+    }
+  };
 
   // Add state to track which post is selected
   const [openModalId, setOpenModalId] = useState(null);
@@ -62,7 +69,9 @@ export default function PostCard({ post, clubId, onUpdate }) {
                   )}
                 </li>
                 <li>
-                  <button type="button">Delete</button>
+                  <button type="button" onClick={handleDelete}>
+                    Delete
+                  </button>
                 </li>
               </ul>
             </div>
