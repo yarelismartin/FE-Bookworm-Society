@@ -4,12 +4,16 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/utils/context/authContext';
 import PropTypes from 'prop-types';
-import { format, formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 import { getSinglePost } from '../../../../../api/PostData';
+import CommentForm from '../../../../../components/forms/CommentForm';
+import CommentCard from '../../../../../components/cards/CommentCard';
 
 export default function PostDetail({ params }) {
   const [post, setPost] = useState({});
+  const { user } = useAuth();
 
   const { postId } = params;
 
@@ -49,21 +53,11 @@ export default function PostDetail({ params }) {
           </div>
         </div>
       </article>
-      {post.comments?.map((comment) => (
-        <div key={comment.id} className="flex justify-center">
-          <div className="relative grid grid-cols-1 gap-3 p-3 mb-8 border rounded-lg bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 w-full max-w-md">
-            <div className="relative flex gap-4">
-              <img src={comment.user?.imageUrl} className="relative rounded-lg -top-6 -mb-2 bg-white border h-16 w-16 object-cover" alt="" loading="lazy" />
-              <div className="flex flex-col w-full">
-                <div className="flex flex-row justify-between">
-                  <p className="relative text-lg whitespace-nowrap truncate overflow-hidden">{comment.user?.username}</p>
-                </div>
-                <p className="text-gray-400 text-xs">{formatDistanceToNow(new Date(comment.createdDate), { addSuffix: true })}</p>
-              </div>
-            </div>
-            <p className="-mt-3 text-gray-500">{comment.content}</p>
-          </div>
-        </div>
+      <div>
+        <CommentForm postId={postId} userId={user.id} onUpdate={getPost} />
+      </div>
+      {post.comments?.map((item) => (
+        <CommentCard comment={item} key={item.id} userId={user.id} onUpdate={getPost} />
       ))}
     </div>
   );
