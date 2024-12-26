@@ -8,7 +8,7 @@ import { TiPinOutline, TiPin } from 'react-icons/ti';
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from '@/utils/context/authContext';
 import PostForm from '../forms/PostForm';
-import { deletePost } from '../../api/PostData';
+import { deletePost, togglePinPost } from '../../api/PostData';
 
 export default function PostCard({ post, clubId, onUpdate, isHost }) {
   const { user } = useAuth();
@@ -21,8 +21,10 @@ export default function PostCard({ post, clubId, onUpdate, isHost }) {
 
   const handlePinClick = (postId) => {
     if (isHost) {
-      console.warn(postId);
-      // handlePinningPost(postId); // Call your function to pin/unpin the post
+      const payload = { userId: user.id, bookClubId: clubId };
+      togglePinPost(payload, postId).then(() => {
+        onUpdate();
+      });
     } else {
       alert('Only the host can pin or unpin posts.');
     }
