@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getBookClubsHaveRead } from '../api/BookClubData';
-import BookCard from './BookCard';
+import BookCard from './cards/BookCard';
 
 export default function HaveRead({ bookClubId }) {
   const [haveRead, setHaveRead] = useState([]);

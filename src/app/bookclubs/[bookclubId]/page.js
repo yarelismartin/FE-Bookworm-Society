@@ -22,7 +22,7 @@ export default function BookClub({ params }) {
       <BookClubTabs>
         <BookClubDetails key="Book Club Hub" label="Book Club Hub" bookClubId={bookclubId} onMembershipStatusChange={handleMembershipStatusChange} updateHostStatus={setIsHost} />
         <HaveRead label="Have Read" key="Have Read" bookClubId={bookclubId} />
-        {isMemberOrHost && <CommunityPosts bookClubId={bookclubId} label="Community Posts" />}
+        {isMemberOrHost && <CommunityPosts bookClubId={bookclubId} label="Community Posts" hostOfClub={isHost} />}
         <VotingSession label="Voting Session" key="Voting Session" bookClubId={bookclubId} hostOfClub={isHost} />
       </BookClubTabs>
     </div>

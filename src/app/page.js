@@ -2,33 +2,30 @@
 
 // any component that uses useAuth needs this because if a component directly imports useAuth, it needs to be a client component since useAuth uses React hooks.
 
-import { Button } from 'react-bootstrap';
-import { signOut } from '@/utils/auth'; // anything in the src dir, you can use the @ instead of relative paths
-import { useAuth } from '@/utils/context/authContext';
-import { useEffect } from 'react';
+/* import { useAuth } from '@/utils/context/authContext';
+ */ import { useEffect, useState } from 'react';
+import BookClubCard from '../components/cards/BookClubCard';
+import { getAllBookClubs } from '../api/BookClubData';
 
 function Home() {
-  const { user } = useAuth();
+  const [clubs, setClubs] = useState([]);
+
+  const getClubs = () => {
+    getAllBookClubs().then((data) => {
+      setClubs(data);
+      console.warn(data);
+    });
+  };
 
   useEffect(() => {
-    console.warn(user);
+    getClubs();
   }, []);
 
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
+    <div className="container flex flex-wrap justify-center items-center mx-auto pt-4 pb-5 gap-4">
+      {clubs.map((club) => (
+        <BookClubCard key={club.id} bookClubObj={club} showDeleteButton={false} onUpdate={getClubs} showImage />
+      ))}
     </div>
   );
 }

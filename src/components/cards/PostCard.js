@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable @next/next/no-img-element */
 import PropTypes from 'prop-types';
@@ -5,10 +7,10 @@ import React, { useState } from 'react';
 import { TiPinOutline, TiPin } from 'react-icons/ti';
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from '@/utils/context/authContext';
-import PostForm from './forms/PostForm';
-import { deletePost } from '../api/PostData';
+import PostForm from '../forms/PostForm';
+import { deletePost } from '../../api/PostData';
 
-export default function PostCard({ post, clubId, onUpdate }) {
+export default function PostCard({ post, clubId, onUpdate, isHost }) {
   const { user } = useAuth();
 
   const handleDelete = () => {
@@ -16,6 +18,17 @@ export default function PostCard({ post, clubId, onUpdate }) {
       deletePost(post.id).then(onUpdate);
     }
   };
+
+  const handlePinClick = (postId) => {
+    if (isHost) {
+      console.warn(postId);
+      // handlePinningPost(postId); // Call your function to pin/unpin the post
+    } else {
+      alert('Only the host can pin or unpin posts.');
+    }
+  };
+
+  const pinButtonClass = isHost ? 'cursor-pointer' : '';
 
   // Add state to track which post is selected
   const [openModalId, setOpenModalId] = useState(null);
@@ -46,36 +59,48 @@ export default function PostCard({ post, clubId, onUpdate }) {
           {/* Timestamp */}
           <div className="flex items-center space-x-4 sm:space-x-8 mt-3 sm:mt-0">
             <div className="text-xs text-neutral-500">{formatDistanceToNow(new Date(post.createdDate), { addSuffix: true })}</div>
-            {post.isPinned ? <TiPin className="w-6 h-6 " /> : <TiPinOutline className="w-6 h-6" />}
-          </div>
-          {user.id === post.user.id && (
-            <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="ellipsis">
-                ...
+            {post.isPinned ? (
+              // Both Host and Members see the TiPin icon when the post is pinned
+              <TiPin className={`w-6 h-6 ${pinButtonClass}`} onClick={isHost ? () => handlePinClick(post.id) : undefined} />
+            ) : (
+              // Only Host sees the TiPinOutline icon when the post is not pinned, and can click it
+              isHost && (
+                <TiPinOutline
+                  className="w-6 h-6 cursor-pointer"
+                  onClick={() => handlePinClick(post.id)} // Host can pin/unpin
+                />
+              )
+            )}
+
+            {user.id === post.user.id && (
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="ellipsis">
+                  ...
+                </div>
+                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow cursor-pointer">
+                  <li>
+                    <button type="button" onClick={() => openModal(post.id)}>
+                      Edit
+                    </button>
+                    {/* Modal */}
+                    {openModalId === post.id && (
+                      <dialog id={`modal-${post.id}`} className="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="modal-box w-11/12 max-w-5xl">
+                          <h3 className="font-bold text-lg">Edit Post</h3>
+                          <PostForm postObj={post} modalClose={closeModal} onUpdate={onUpdate} />
+                        </div>
+                      </dialog>
+                    )}
+                  </li>
+                  <li>
+                    <button type="button" onClick={handleDelete}>
+                      Delete
+                    </button>
+                  </li>
+                </ul>
               </div>
-              <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow cursor-pointer">
-                <li>
-                  <button type="button" onClick={() => openModal(post.id)}>
-                    Edit
-                  </button>
-                  {/* Modal */}
-                  {openModalId === post.id && (
-                    <dialog id={`modal-${post.id}`} className="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                      <div className="modal-box w-11/12 max-w-5xl">
-                        <h3 className="font-bold text-lg">Edit Post</h3>
-                        <PostForm postObj={post} modalClose={closeModal} onUpdate={onUpdate} />
-                      </div>
-                    </dialog>
-                  )}
-                </li>
-                <li>
-                  <button type="button" onClick={handleDelete}>
-                    Delete
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         {/* Content */}
         <div className="mt-4 mb-6">
@@ -115,4 +140,5 @@ PostCard.propTypes = {
   }).isRequired,
   clubId: PropTypes.number.isRequired,
   onUpdate: PropTypes.func,
+  isHost: PropTypes.bool.isRequired,
 };

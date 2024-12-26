@@ -9,7 +9,7 @@ import { useAuth } from '@/utils/context/authContext';
 import { Card, CardBody, Typography, Button, Avatar, CardFooter } from '@material-tailwind/react';
 import { format } from 'date-fns';
 import { addUserToClub, getSingleBookClub, removeUserFromClub } from '../api/BookClubData';
-import BookCard from './BookCard';
+import BookCard from './cards/BookCard';
 
 export default function BookClubDetails({ bookClubId, onMembershipStatusChange, updateHostStatus }) {
   const [bookClub, setBookClub] = useState({});
@@ -20,6 +20,7 @@ export default function BookClubDetails({ bookClubId, onMembershipStatusChange, 
       setBookClub(data);
       onMembershipStatusChange(data.isMemberOrHost);
       updateHostStatus(data.host.id === user.id);
+      console.warn(data);
     });
   };
 
@@ -114,5 +115,3 @@ BookClubDetails.propTypes = {
   onMembershipStatusChange: PropTypes.func.isRequired,
   updateHostStatus: PropTypes.func.isRequired,
 };
-
-/* pass is a memeber or host to the tab page and have useeffect call it and pass th ebool value if its true then show all tabs otherwise dont */

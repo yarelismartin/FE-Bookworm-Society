@@ -8,9 +8,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getCommunityPosts } from '../../../../api/BookClubData';
 import PostForm from '../../../../components/forms/PostForm';
-import PostCard from '../../../../components/PostCard';
+import PostCard from '../../../../components/cards/PostCard';
 
-export default function CommunityPosts({ bookClubId }) {
+export default function CommunityPosts({ bookClubId, hostOfClub }) {
   const [posts, setPosts] = useState([]);
 
   const getPosts = () => {
@@ -28,7 +28,7 @@ export default function CommunityPosts({ bookClubId }) {
     <div label="Community Posts">
       <PostForm clubId={bookClubId} onUpdate={getPosts} />
       {posts.map((item) => (
-        <PostCard post={item} key={item.id} clubId={bookClubId} onUpdate={getPosts} />
+        <PostCard post={item} key={item.id} clubId={bookClubId} onUpdate={getPosts} isHost={hostOfClub} />
       ))}
     </div>
   );
@@ -36,4 +36,5 @@ export default function CommunityPosts({ bookClubId }) {
 
 CommunityPosts.propTypes = {
   bookClubId: PropTypes.number.isRequired,
+  hostOfClub: PropTypes.bool.isRequired,
 };
