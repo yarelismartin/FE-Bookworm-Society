@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 
@@ -10,11 +9,16 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Arsenal SC", serif;
 }
 body {
   background-color: #ede7e7;
-  font-family: "Arsenal SC", serif;
+  font-family: "Arsenal SC", serif !important;
   min-height: 100vh;
+}
+
+html {
+  font-family: "Arsenal", serif;
 }
 :root {
   --default-font: "Lora", serif;  
@@ -158,3 +162,16 @@ body {
   transform: scale(1.05); /* Slightly increase size on hover */
   color: white;
 }
+
+  .lora-font{
+    font-family: var(--default-font) !important;
+  }
+
+
+   @media(max-width: 722px )
+  {
+    .tab-responsive {
+      display: flex !important;
+      flex-wrap: wrap !important;
+    }
+  } 

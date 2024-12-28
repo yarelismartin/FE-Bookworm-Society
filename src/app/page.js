@@ -13,7 +13,6 @@ function Home() {
   const getClubs = () => {
     getAllBookClubs().then((data) => {
       setClubs(data);
-      console.warn(data);
     });
   };
 

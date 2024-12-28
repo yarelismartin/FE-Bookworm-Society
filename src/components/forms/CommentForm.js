@@ -43,6 +43,7 @@ export default function CommentForm({ postId, userId, onUpdate }) {
             }}
             as="textarea"
             rows={5}
+            className="lora-font"
             placeholder="Make a comment..."
             name="content"
             onKeyDown={(e) => {

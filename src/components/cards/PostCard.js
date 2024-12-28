@@ -46,8 +46,9 @@ export default function PostCard({ post, clubId, onUpdate, isHost }) {
     const modal = document.getElementById(`modal-${post.id}`);
     if (modal) modal.close(); // This will close the modal
   };
+
   return (
-    <div key={post.id} className="flex items-center justify-center mb-3">
+    <div key={post.id} className="flex items-center justify-center mb-3 lora-font">
       <div className="rounded-xl border p-4 shadow-md w-full sm:w-10/12 md:w-11/12 lg:w-11/12 bg-white">
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between border-b pb-3">
@@ -105,8 +106,8 @@ export default function PostCard({ post, clubId, onUpdate, isHost }) {
           </div>
         </div>
         {/* Content */}
-        <div className="mt-4 mb-6">
-          <div className="text-xs sm:text-sm text-neutral-600">{post.content}</div>
+        <div className="mt-4 mb-6 lora-font">
+          <div className="text-xs sm:text-sm text-neutral-600 lora-font">{post.content}</div>
         </div>
         {/* Footer */}
         <div className="flex items-center justify-between text-slate-500">

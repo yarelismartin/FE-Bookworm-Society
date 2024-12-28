@@ -20,7 +20,6 @@ export default function BookClubDetails({ bookClubId, onMembershipStatusChange, 
       setBookClub(data);
       onMembershipStatusChange(data.isMemberOrHost);
       updateHostStatus(data.host.id === user.id);
-      console.warn(data);
     });
   };
 

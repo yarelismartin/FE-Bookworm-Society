@@ -32,14 +32,12 @@ export default function PostForm({ postObj = initialState, clubId, onUpdate, mod
     if (postObj?.id) {
       const updatePayload = { content: formInput.content };
       updatePost(updatePayload, postObj.id).then(() => {
-        console.warn('updated', updatePayload, postObj.id);
         modalClose();
         onUpdate();
       });
     } else {
       const payload = { ...formInput, bookclubId: clubId, userId: user.id };
       createAPost(payload).then(() => {
-        console.warn('created', { ...formInput, bookclubId: clubId, userId: user.id });
         setFormInput(initialState);
         onUpdate();
       });
@@ -49,7 +47,6 @@ export default function PostForm({ postObj = initialState, clubId, onUpdate, mod
   useEffect(() => {
     if (postObj.id) {
       setFormInput(postObj);
-      console.warn('true');
     } else {
       setFormInput(initialState);
     }
@@ -61,7 +58,7 @@ export default function PostForm({ postObj = initialState, clubId, onUpdate, mod
         <div className="flex items-start space-x-4">
           {/* User Avatar */}
           {/* Textarea for Post */}
-          <textarea placeholder="Share your thoughts..." onChange={handleChange} name="content" rows={3} required value={formInput.content} className="flex-grow bg-gray-100 p-3 rounded-md border border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none" />
+          <textarea placeholder="Share your thoughts..." onChange={handleChange} name="content" rows={3} required value={formInput.content} className="flex-grow bg-gray-100 p-3 rounded-md border border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none lora-font" />
         </div>
         {/* Buttons for Adding Media and Submitting */}
         <div className="flex items-center mt-2 justify-end">

@@ -15,8 +15,8 @@ export default function CommunityPosts({ bookClubId, hostOfClub }) {
 
   const getPosts = () => {
     getCommunityPosts(bookClubId).then((data) => {
-      console.warn(data);
       setPosts(data.posts);
+      console.warn(data.posts);
     });
   };
 

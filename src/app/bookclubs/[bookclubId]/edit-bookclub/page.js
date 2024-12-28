@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -14,7 +16,6 @@ export default function EditBookClub({ params }) {
   const singleBookClub = () => {
     getSingleBookClub(bookclubId, user.id).then((data) => {
       setBookClub(data);
-      console.warn(data);
     });
   };
 
