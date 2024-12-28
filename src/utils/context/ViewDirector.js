@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useAuth } from '@/utils/context/authContext';
 import Loading from '@/components/Loading';
 import SignIn from '@/components/SignIn';
-import UnauthenticatedNavbar from '@/components/UnauthenticatedNavbar';
 import RegistrationForm from '@/components/forms/RegistrationForm';
-import AuthenticatedNavbar from '../../components/AuthenticatedNavbar';
+import UnauthenticatedNavbar from '../../components/navbars/UnauthenticatedNavbar';
+import AuthenticatedNavbar from '../../components/navbars/AuthenticatedNavbar';
 
 function ViewDirectorBasedOnUserAuthStatus({ children }) {
   const { user, userLoading, updateUser } = useAuth();

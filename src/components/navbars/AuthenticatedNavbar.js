@@ -4,10 +4,10 @@ import React from 'react';
 import { Arsenal } from 'next/font/google';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import Image from 'next/image';
-import { signOut } from '../utils/auth';
-import logo from '../../public/images/Book Club Logo.png';
-
+/* import Image from 'next/image';
+ */ import { signOut } from '../../utils/auth';
+/* import logo from '../../../public/images/Book Club Logo.png';
+ */
 const arsenal = Arsenal({ subsets: ['latin'], weight: ['400'] });
 export default function AuthenticatedNavbar({ userId, userImage }) {
   return (
@@ -16,11 +16,14 @@ export default function AuthenticatedNavbar({ userId, userImage }) {
         <div className="flex h-16 items-center justify-between">
           {/* Left Section: Logo and Navigation */}
           <div className="flex items-center">
-            <Image src={logo} alt="Book Club Logo" width={120} height={50} />
+            {/* <Image src={logo} alt="Book Club Logo" width={120} height={50} style={{ width: 'auto', height: 'auto' }} priority/> */}
 
             <div className="hidden sm:block ml-4">
               <Link href={`/users/${userId}/my-clubs`} className="text-[#ede7e7] px-3 py-2 text-sm font-medium rounded-md hover:bg-blue-700">
                 My Clubs
+              </Link>
+              <Link href="/" className="text-[#ede7e7] px-3 py-2 text-sm font-medium rounded-md hover:bg-blue-700">
+                Join A Book Club
               </Link>
             </div>
           </div>
@@ -39,6 +42,7 @@ export default function AuthenticatedNavbar({ userId, userImage }) {
                     Profile
                   </Link>
                 </li>
+
                 <li>
                   <button type="button" onClick={signOut} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Logout

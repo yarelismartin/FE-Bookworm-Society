@@ -20,7 +20,6 @@ export default function VotingSession({ bookClubId, hostOfClub }) {
     } else {
       // Assume valid JSON object if not a string
       setVotingSession(response);
-      console.warn(response);
       setErrorMessage(null); // Clear errors
     }
   };

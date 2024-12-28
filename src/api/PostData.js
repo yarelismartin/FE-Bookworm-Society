@@ -55,4 +55,18 @@ const deletePost = (postId) =>
       .catch(reject);
   });
 
-export { getSinglePost, createAPost, updatePost, deletePost };
+const togglePinPost = (payload, postId) =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/posts/${postId}/pin-post`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getSinglePost, createAPost, updatePost, deletePost, togglePinPost };

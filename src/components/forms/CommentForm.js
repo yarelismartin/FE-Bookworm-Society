@@ -32,18 +32,9 @@ export default function CommentForm({ postId, userId, onUpdate }) {
   };
 
   return (
-    <div
-      style={{
-        border: '1px solid',
-        margin: '20px auto',
-        padding: '15px 15px',
-        borderRadius: '10px',
-        borderColor: 'black',
-        width: '80%',
-      }}
-    >
+    <div className=" p-2 w-full max-w-lg mx-auto mb-3">
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="input-form" style={{ marginTop: '0px' }}>
+        <Form.Group className="input-form">
           <Form.Control
             style={{
               border: '1.6px solid',
@@ -52,6 +43,7 @@ export default function CommentForm({ postId, userId, onUpdate }) {
             }}
             as="textarea"
             rows={5}
+            className="lora-font"
             placeholder="Make a comment..."
             name="content"
             onKeyDown={(e) => {
@@ -65,8 +57,8 @@ export default function CommentForm({ postId, userId, onUpdate }) {
           />
         </Form.Group>
         <hr style={{ backgroundColor: '#CBC9C9', margin: '10px' }} />
-        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px' }}>
-          <Button style={{ fontSize: '14px' }} type="submit">
+        <div className="flex justify-end mt-2">
+          <Button style={{ fontSize: '14px' }} type="submit" className="form-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
             Comment
           </Button>
         </div>

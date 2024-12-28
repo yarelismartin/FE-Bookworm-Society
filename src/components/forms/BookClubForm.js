@@ -58,7 +58,6 @@ export default function BookClubForm({ bookClubObj }) {
     } else {
       createBookClub({ ...formInput, hostId: user.id }).then(() => {
         router.push(`/users/${user.id}/my-clubs`);
-        console.warn({ ...formInput, hostId: user.id });
       });
     }
   };

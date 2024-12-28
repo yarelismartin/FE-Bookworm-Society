@@ -58,7 +58,7 @@ export default function CommentCard({ comment, userId, onUpdate }) {
             </div>
           </div>
         </div>
-        <p className="-mt-3 text-gray-500">{comment.content}</p>
+        <p className="-mt-3 text-gray-500 lora-font font-light">{comment.content}</p>
       </div>
     </div>
   );

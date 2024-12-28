@@ -2,6 +2,19 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
+const getAllBookClubs = () =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/bookclubs`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
 const getSingleBookClub = (bookClubId, userId) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/bookclubs/${bookClubId}?userId=${userId}`, {
@@ -107,4 +120,4 @@ const getCommunityPosts = (bookClubId) =>
       .catch(reject);
   });
 
-export { updateBookClub, createBookClub, getSingleBookClub, getBookClubsHaveRead, addUserToClub, removeUserFromClub, deletBookClub, getCommunityPosts };
+export { updateBookClub, createBookClub, getSingleBookClub, getBookClubsHaveRead, addUserToClub, removeUserFromClub, deletBookClub, getCommunityPosts, getAllBookClubs };

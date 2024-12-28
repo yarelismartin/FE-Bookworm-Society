@@ -7,3 +7,6 @@ export default function Loading() {
     </div>
   );
 }
+/* <div className="min-h-screen flex items-center justify-center">
+      <span className="loading loading-infinity loading-lg" />
+    </div> */

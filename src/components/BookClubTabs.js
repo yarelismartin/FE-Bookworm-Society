@@ -15,7 +15,7 @@ export default function BookClubTabs({ children }) {
 
   return (
     <Tabs value="Book Club Hub">
-      <TabsHeader>
+      <TabsHeader className="tab-responsive">
         {React.Children.map(children, (child) =>
           child ? (
             <Tab key={child.props?.label} value={child.props?.label} onClick={() => handleTabChange(child.props.label)}>
