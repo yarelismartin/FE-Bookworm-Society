@@ -2,18 +2,16 @@
 
 'use client';
 
-import { useRouter } from 'next/navigation';
 /* eslint-disable @next/next/no-img-element */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import { IoLocationOutline } from 'react-icons/io5';
 import { TfiLink } from 'react-icons/tfi';
+import Link from 'next/link';
 import { deletBookClub } from '../../api/BookClubData';
 
 export default function BookClubCard({ bookClubObj, showDeleteButton, onUpdate, showImage }) {
-  const router = useRouter();
-
   const handleDeletingBookClub = () => {
     if (window.confirm('Are you sure you want to delete this book club? You can always hand over hosting abilities to a current member.')) {
       deletBookClub(bookClubObj.id).then(onUpdate);
@@ -52,9 +50,9 @@ export default function BookClubCard({ bookClubObj, showDeleteButton, onUpdate, 
               </div>
               <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow">
                 <li>
-                  <button type="button" onClick={() => router.push(`/bookclubs/${bookClubObj.id}/edit-bookclub`)}>
+                  <Link href={`/bookclubs/${bookClubObj.id}/edit-bookclub`} passHref>
                     Edit
-                  </button>
+                  </Link>
                 </li>
                 <li>
                   <button type="button" onClick={handleDeletingBookClub}>
@@ -73,9 +71,9 @@ export default function BookClubCard({ bookClubObj, showDeleteButton, onUpdate, 
         <p className="text-sm text-gray-600">{bookClubObj.description}</p>
         {/* Actions */}
         <div className="card-actions mt-4">
-          <button type="button" className="blue-button w-full" onClick={() => router.push(`/bookclubs/${bookClubObj.id}`)}>
+          <Link href={`/bookclubs/${bookClubObj.id}`} className="blue-button w-full ml-auto mr-auto text-center">
             Visit Club
-          </button>
+          </Link>
         </div>
       </div>
     </div>

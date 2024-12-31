@@ -25,7 +25,7 @@ export default function EditBookClub({ params }) {
 
   return (
     <div>
-      <BookClubForm bookClubObj={bookClub} />
+      <BookClubForm bookClubObj={bookClub} userId={user.id} />
     </div>
   );
 }

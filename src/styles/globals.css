@@ -48,6 +48,18 @@ html {
   color: var(--white-text);
 }
 
+
+@media (max-width: 395px) {
+  .nav-responsive {
+    margin-left: 0rem !important;
+    padding-left: 0 !important;
+  }
+
+  .nav-header {
+    margin-left: 0;
+  }
+}
+
 /* Card Wrapper */
 .book-club-card {
   position: relative;

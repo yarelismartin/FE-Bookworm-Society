@@ -7,7 +7,7 @@ import ClubTabs from '../../../components/ClubTabs';
 
 const BookClubDetails = dynamic(() => import('../../../components/BookClubDetails'), { ssr: false });
 const HaveRead = dynamic(() => import('../../../components/HaveRead'), { ssr: false });
-const CommunityPosts = dynamic(() => import('./community-posts/page'), { ssr: false });
+const CommunityPosts = dynamic(() => import('../../../components/CommunityPosts'), { ssr: false });
 const VotingSession = dynamic(() => import('../../../components/VotingSession'), { ssr: false });
 
 export default function BookClub({ params }) {

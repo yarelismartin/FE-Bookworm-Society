@@ -4,26 +4,26 @@ import React from 'react';
 import { Arsenal } from 'next/font/google';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-/* import Image from 'next/image';
- */ import { signOut } from '../../utils/auth';
-/* import logo from '../../../public/images/Book Club Logo.png';
- */
+import Image from 'next/image';
+import { signOut } from '../../utils/auth';
+import logo from '../../../public/images/Book Club Logo.png';
+
 const arsenal = Arsenal({ subsets: ['latin'], weight: ['400'] });
 export default function AuthenticatedNavbar({ userId, userImage }) {
   return (
     <nav className={`bg-[#497dcb] ${arsenal.className} custom-shadow`}>
-      <div className="mx-auto px-4">
+      <div className="mx-auto px-4 pl-0 nav-responsive">
         <div className="flex h-16 items-center justify-between">
           {/* Left Section: Logo and Navigation */}
-          <div className="flex items-center">
-            {/* <Image src={logo} alt="Book Club Logo" width={120} height={50} style={{ width: 'auto', height: 'auto' }} priority/> */}
+          <div className="flex items-center pl-0">
+            <Image src={logo} alt="Book Club Logo" width={120} height={50} style={{ width: 'auto', height: 'auto' }} priority />
 
-            <div className="hidden sm:block ml-4">
+            <div className=" sm:block ml-4 nav-header">
               <Link href={`/users/${userId}/my-clubs`} className="text-[#ede7e7] px-3 py-2 text-sm font-medium rounded-md hover:bg-blue-700">
                 My Clubs
               </Link>
               <Link href="/" className="text-[#ede7e7] px-3 py-2 text-sm font-medium rounded-md hover:bg-blue-700">
-                Join A Book Club
+                Join Club
               </Link>
             </div>
           </div>
