@@ -15,7 +15,7 @@ function Signin() {
         backgroundColor: '#497dcb',
       }}
     >
-      <Image src={logo} alt="Book Club Logo" width={500} height={300} layout="intrinsic" />
+      <Image src={logo} alt="Book Club Logo" width={500} height={300} priority />
       <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
         Sign In
       </Button>
