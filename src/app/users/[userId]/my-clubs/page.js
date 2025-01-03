@@ -2,16 +2,16 @@
 
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 // import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { getUsersClubs } from '../../../../api/UserData';
 import BookClubCard from '../../../../components/cards/BookClubCard';
 
 export default function MyClubs() {
   const { userId } = useParams();
   const [bookClubs, setBookClubs] = useState({ members: [], hosts: [] });
-  const router = useRouter();
 
   const getMyClubs = () => {
     getUsersClubs(userId).then((data) => {
@@ -29,9 +29,9 @@ export default function MyClubs() {
   return (
     <div className="container mx-auto pt-4 pb-5">
       <div className="flex justify-center mb-4">
-        <button type="button" className="blue-button" onClick={() => router.push(`/bookclubs/add-bookclub`)}>
+        <Link href="/bookclubs/add-bookclub" className="blue-button">
           Create Book Club
-        </button>
+        </Link>
       </div>
 
       <h3 className="text-center text-xl font-semibold mb-4">Clubs You Are Hosting</h3>

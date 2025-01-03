@@ -2,10 +2,9 @@
 
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/utils/context/authContext';
 import { useRouter } from 'next/navigation';
 import PropTypes from 'prop-types';
-import { ChevronDownIcon } from '@heroicons/react/16/solid';
+import { FaChevronDown } from 'react-icons/fa';
 import { createBookClub, updateBookClub } from '../../api/BookClubData';
 
 const initialState = {
@@ -16,9 +15,8 @@ const initialState = {
   hostId: 0,
 };
 
-export default function BookClubForm({ bookClubObj }) {
+export default function BookClubForm({ bookClubObj, userId }) {
   const [previewUrl, setPreviewUrl] = useState('');
-  const { user } = useAuth();
   const router = useRouter();
   const [formInput, setFormInput] = useState(initialState);
 
@@ -53,11 +51,11 @@ export default function BookClubForm({ bookClubObj }) {
         if (!confirmChange) return;
       }
       updateBookClub(formInput, bookClubObj.id).then(() => {
-        router.push(`/users/${user.id}/my-clubs`);
+        router.push(`/users/${userId}/my-clubs`);
       });
     } else {
-      createBookClub({ ...formInput, hostId: user.id }).then(() => {
-        router.push(`/users/${user.id}/my-clubs`);
+      createBookClub({ ...formInput, hostId: userId }).then(() => {
+        router.push(`/users/${userId}/my-clubs`);
       });
     }
   };
@@ -137,7 +135,7 @@ export default function BookClubForm({ bookClubObj }) {
                       </option>
                     ))}
                   </select>
-                  <ChevronDownIcon aria-hidden="true" className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" />
+                  <FaChevronDown aria-hidden="true" className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" />
                 </div>
               </div>
             )}
@@ -202,6 +200,7 @@ BookClubForm.propTypes = {
       }),
     ),
   }),
+  userId: PropTypes.number.isRequired,
 };
 /* When the user is creating the club they will be the host. 
 But when we edit then they should be a drop down that shows that garbs all the members in that club so the user can select another host if they want. we want to make sure to incude the host nam in that drop down too though */
