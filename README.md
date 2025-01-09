@@ -1,9 +1,7 @@
 <div style="text-align:center">
     
- # [![Netlify Status](https://api.netlify.com/api/v1/badges/a2e524f0-2c57-4757-adea-95b5b682d541/deploy-status)](https://skill-swap-app.netlify.app/)
-![skill-logo](https://github.com/yarelismartin/skill-swap/assets/153558948/02f91f03-68dc-45ed-8b0e-055e56bd5030)
+![logo](https://github.com/yarelismartin/FE-Bookworm-Society/blob/5e8b8f38fc12be70590c4e83fe6bd0fdb15eb349/public/images/Blue%20Book%20Club%20Logo.png)
 
-- [View App](https://skill-swap-app.netlify.app/)
 
 </div>
 
@@ -11,31 +9,36 @@
 
 Clone this repo and submit the following command: 
 
-```
-npm install 
-```
-```
+npm install
+
 npm run prepare
-```
-```
+
+Set up environment variables. Create a .env.local file at the root of the project and add the following:
+NEXT_PUBLIC_FIREBASE_API_KEY="your_firebase_api_key_here"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="your_firebase_auth_domain_here"
+NEXT_PUBLIC_DATABASE_URL="http://localhost:7087"  # Adjust this as necessary
+
 npm run dev
-```
+
+
 
 ## Topics 
-- [What is Skill Swap ?](#what-is-skill-swap-)
+- [What is Bookworm Society ?](#what-is-bookworm-society-)
 - [Who is the user ?](#who-is-the-user-)
 - [Features](#features)
-- [Planning for Skill Swap](#planning-for-skill-swap)
 - [Tech Stack](#tech-stack)
+- [Backedend](#backend)
 - [Contributors](#contributors)
 ___
 
-## What is Skill Swap ?
-Skill Swap is a community platform that empowers individuals to exchange skills and knowledge locally. It connects users with expertise they seek, fostering peer-to-peer learning and collaboration. Skill Swap promotes personal growth and community building, offering a comprehensive and diverse learning experience.
+## What is Bookworm Society ?
+**Bookworm** is a book club management platform where users can join clubs, vote on books to read, participate in discussions, and track their reading history. This repository contains the frontend code for the Bookworm platform, built with **Next.js** and **React**.
+
 
 ## Who is the user ?
-- A hobby enthusiast who has various interests but finds it hard to focus on one because of lack of encouragement and community.
-- A person who values continuous learning and likes to bond with others through a shared interest.
+- **Book Club Enthusiasts**: Individuals who enjoy reading and discussing books with others. These users can join or create book clubs, participate in voting sessions, and engage in discussions with other members.
+- **Club Hosts**: Users who create and manage book clubs. They have administrative control, such as approving or rejecting join requests, setting up voting sessions, and moderating discussions.
+- **Readers**: Users who are primarily interested in tracking their reading journey. They can follow along with book clubs, participate in voting, and add books to their personal reading list.
 
 ## Features
 - A users can create, read, and edit their profile.
@@ -45,19 +48,21 @@ Skill Swap is a community platform that empowers individuals to exchange skills 
 - A user can search on the Disocver page by name, location, skill and learning preference.
 - A user can filter posts by navigating through the menu on the Community page. 
 
-## Planning for Skill Swap
-- [ERD](https://dbdiagram.io/d/SkillSwap-6642c9b59e85a46d55c26760)
-- [Wireframes](https://www.figma.com/design/B9CDm8lsA5Rb1XuHBw3Ulq/SkillSwap?node-id=0-1&m=dev)
-- [Loom]()
-- [Project Board](https://github.com/users/yarelismartin/projects/6/views/1?visibleFields=%5B112396608%2C%22Title%22%2C%22Status%22%2C112396612%2C112396613%2C%22Linked+pull+requests%22%5D)
-
 ## Tech Stack
 - [date-fns](https://date-fns.org/)
 - React.js
 - Next.js
 - React Bootstrap
 - CSS
+- Tailwind
+- DaisyUI
 - Firebase
+- **Backend**: The backend of this application is built with Node.js
+
+## Backend
+Make sure to check the backend documentation for setup and configuration instructions.
+[Bookworm Society Backend](https://github.com/yarelismartin/Bookworm-Society-BE)
+
 
 ## Contributors
 - [Yarelis Martin](https://github.com/your-github-url)
