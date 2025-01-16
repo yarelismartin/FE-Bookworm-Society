@@ -2,24 +2,30 @@
     
 ![logo](https://github.com/yarelismartin/FE-Bookworm-Society/blob/5e8b8f38fc12be70590c4e83fe6bd0fdb15eb349/public/images/Blue%20Book%20Club%20Logo.png)
 
+[Watch Video Demo On Canva!](https://www.canva.com/design/DAGcYrnLbSg/UlxsdMmpufn8VkEy-UjRNg/watch?utm_content=DAGcYrnLbSg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h39affbcb61)
 
 </div>
 
 ## Get Started 
 
 Clone this repo and submit the following command: 
-
+```
 npm install
-
+```
+```
 npm run prepare
+```
+
 
 Set up environment variables. Create a .env.local file at the root of the project and add the following:
+```
 NEXT_PUBLIC_FIREBASE_API_KEY="your_firebase_api_key_here"
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="your_firebase_auth_domain_here"
 NEXT_PUBLIC_DATABASE_URL="http://localhost:7087"  # Adjust this as necessary
-
+```
+```
 npm run dev
-
+```
 
 
 ## Topics 
