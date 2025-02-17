@@ -7,16 +7,20 @@ assignees: ''
 
 ---
 
-# User Story
+### User Story
 
-# Acceptance Criteria
+---
+### Acceptance Criteria
 - 
 
-# Dependencies
+---
+### Dependencies
 - 
 
-# Task Breakdown
+---
+### Task Breakdown
 - [ ] 
 
-# Dev Notes
+---
+### Dev Notes
 
