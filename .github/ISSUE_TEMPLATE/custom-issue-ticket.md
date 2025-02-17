@@ -1,5 +1,5 @@
 ---
-name: custom issue ticket
+name: FE Ticket
 about: FE Issue Ticket
 title: ''
 labels: ''
@@ -10,11 +10,13 @@ assignees: ''
 # User Story
 
 # Acceptance Criteria
-<!--- Figma --->
-<!--- ERD --->
+- 
 
 # Dependencies
+- 
+
+# Task Breakdown
+- [ ] 
 
 # Dev Notes
-<!--- Structure Checklist --->
-<!--- Code Sample --->
+
