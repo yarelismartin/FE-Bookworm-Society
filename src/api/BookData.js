@@ -2,9 +2,9 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getAllBooks = () =>
+const getAllBooks = (page, pageSize) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books`, {
+    fetch(`${endpoint}/books?page=${page}&pageSize=${pageSize}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
