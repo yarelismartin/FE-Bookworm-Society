@@ -10,7 +10,7 @@ export default function BrowseBooksCard({ bookObj }) {
       </div>
 
       <div className="p-2 bg-transparent">
-        <h3 className="text-lg font-semibold text-gray-800  transition-all duration-300 ease-in-out group-hover:underline cursor-pointer">{bookObj.title}</h3>
+        <h3 className="text-lg font-semibold text-[#1e1915]  transition-all duration-300 ease-in-out group-hover:underline cursor-pointer">{bookObj.title}</h3>
         <p className="text-sm text-gray-600">by {bookObj.author}</p>
       </div>
     </div>

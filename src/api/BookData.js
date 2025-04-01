@@ -15,4 +15,17 @@ const getAllBooks = (page, pageSize) =>
       .catch(reject);
   });
 
-export default getAllBooks;
+const getPopularBooks = () =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/books/popular`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getAllBooks, getPopularBooks };
