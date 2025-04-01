@@ -187,3 +187,35 @@ html {
       flex-wrap: wrap !important;
     }
   } 
+
+  .react-multi-carousel-item {
+    flex: 0 0 auto !important;
+  }
+  
+  /* Small screens */
+  @media (max-width: 640px) {
+    .react-multi-carousel-item {
+      width: 90% !important; /* Reduce width for better fit */
+    }
+  }
+  
+  /* Medium screens */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .react-multi-carousel-item {
+      width: 45% !important; /* Smaller width */
+    }
+  }
+  
+  /* Large screens */
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    .react-multi-carousel-item {
+      width: 15% !important; /* Three items with more space */
+    }
+  }
+  
+  /* Extra large screens */
+  @media (min-width: 1441px) {
+    .react-multi-carousel-item {
+      width: 15% !important; /* Smaller width to fit more items */
+    }
+  }

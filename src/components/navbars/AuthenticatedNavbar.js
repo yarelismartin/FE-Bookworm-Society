@@ -25,6 +25,9 @@ export default function AuthenticatedNavbar({ userId, userImage }) {
               <Link href="/" className="text-[#ede7e7] px-3 py-2 text-sm font-medium rounded-md hover:bg-blue-700">
                 Join Club
               </Link>
+              <Link href="/books" className="text-[#ede7e7] px-3 py-2 text-sm font-medium rounded-md hover:bg-blue-700">
+                Books
+              </Link>
             </div>
           </div>
 

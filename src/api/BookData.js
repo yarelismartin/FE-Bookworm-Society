@@ -2,9 +2,9 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getAllBooks = () =>
+const getAllBooks = (page, pageSize) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books`, {
+    fetch(`${endpoint}/books?page=${page}&pageSize=${pageSize}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -15,4 +15,17 @@ const getAllBooks = () =>
       .catch(reject);
   });
 
-export default getAllBooks;
+const getPopularBooks = () =>
+  new Promise((resolve, reject) => {
+    fetch(`${endpoint}/books/popular`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getAllBooks, getPopularBooks };
