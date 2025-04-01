@@ -188,21 +188,32 @@ html {
     }
   } 
 
+  .react-multi-carousel-list{
+    padding-top: 1rem;
+    padding-right: 0;
+  }
+
   .react-multi-carousel-item {
     flex: 0 0 auto !important;
+      padding: 0;
+    
+  }
+
+  .book-card-cover{
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .2));
   }
   
   /* Small screens */
   @media (max-width: 640px) {
     .react-multi-carousel-item {
-      width: 90% !important; /* Reduce width for better fit */
+      width: 11.5% !important; /* Reduce width for better fit */
     }
   }
   
   /* Medium screens */
   @media (min-width: 641px) and (max-width: 1024px) {
     .react-multi-carousel-item {
-      width: 45% !important; /* Smaller width */
+      width: 15% !important; /* Smaller width */
     }
   }
   
@@ -219,3 +230,54 @@ html {
       width: 15% !important; /* Smaller width to fit more items */
     }
   }
+
+  .view-all-books{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; 
+    justify-content: center; 
+  }
+
+  @media (max-width: 380px) {
+    .view-all-books {
+      flex-wrap:nowrap;
+      flex-direction: column;
+    }
+
+    .line-break {
+        border-top: 1px solid #CCCCCC;
+        padding-top: 1rem;
+      }
+
+    .book-wrapper {
+      display: flex;
+      flex-direction: row; /* Keep row layout even on smaller screens */
+      width: 100%;
+      gap: 1rem; /* Space between image and text */
+      align-items: center;
+    }
+    .book-wrapper .relative {
+      flex: 1; /* Let image take up part of the width */
+      max-width: 40%; /* Limit the image width */
+    }
+  
+    .book-wrapper img {
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+    }
+  
+    .book-wrapper .p-2 {
+      flex: 1; /* Let text area take up the remaining space */
+      margin-bottom: auto;
+    }
+  }
+
+  .truncate-book-title {
+    display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+  

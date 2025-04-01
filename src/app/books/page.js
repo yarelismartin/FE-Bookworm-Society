@@ -5,11 +5,10 @@ import Carousel from 'react-multi-carousel';
 import { getAllBooks, getPopularBooks } from '../../api/BookData';
 import BrowseBooksCard from '../../components/cards/BrowseBooksCard';
 import 'react-multi-carousel/lib/styles.css';
+import CarouselBooksCard from '../../components/cards/CarouselBookCard';
 
 export default function Books() {
   const [books, setBooks] = useState([]);
-  // const [startIndex, setStartIndex] = useState(0);
-  // const [booksPerSlide, setBooksPerSlide] = useState(3); // Default for mid-sized screens
   const [popularBooks, setPopularBooks] = useState([]);
 
   const getBooks = () => {
@@ -40,12 +39,12 @@ export default function Books() {
     },
     mobile: {
       breakpoint: { max: 640, min: 0 },
-      items: 1,
+      items: 2,
     },
   };
 
   return (
-    <div className="pt-4">
+    <div className="pt-4 w-full overflow-hidden">
       <Carousel
         responsive={responsive}
         infinite={false} // Set to true if you want it to loop
@@ -57,12 +56,14 @@ export default function Books() {
         containerClass="carousel-container"
         itemClass="m-0 p-0" // Adjust spacing between slides
         removeArrowOnDeviceType={['tablet', 'mobile']} // Remove arrows on smaller screens
+        centerMode={false}
+        partialVisible={false}
       >
         {popularBooks.map((book) => (
-          <BrowseBooksCard key={book.id} bookObj={book} />
+          <CarouselBooksCard key={book.id} bookObj={book} />
         ))}
       </Carousel>
-      <div className="flex flex-wrap gap-4">
+      <div className="view-all-books">
         {books?.map((book) => (
           <BrowseBooksCard bookObj={book} />
         ))}
