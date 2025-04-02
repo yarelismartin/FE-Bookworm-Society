@@ -18,7 +18,7 @@ export default function BookCard({ bookObj, showCurrentRead = false }) {
       </CardHeader>
       <CardBody>
         <div className="mb-2 flex items-center justify-between">
-          <Typography color="blue-gray" className="font-medium">
+          <Typography color="blue-gray" className="font-medium truncate-book-title">
             {bookObj.title}
           </Typography>
         </div>
