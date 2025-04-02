@@ -203,33 +203,6 @@ html {
     filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .2));
   }
   
-  /* Small screens */
-  @media (max-width: 640px) {
-    .react-multi-carousel-item {
-      width: 11.5% !important; /* Reduce width for better fit */
-    }
-  }
-  
-  /* Medium screens */
-  @media (min-width: 641px) and (max-width: 1024px) {
-    .react-multi-carousel-item {
-      width: 15% !important; /* Smaller width */
-    }
-  }
-  
-  /* Large screens */
-  @media (min-width: 1025px) and (max-width: 1440px) {
-    .react-multi-carousel-item {
-      width: 15% !important; /* Three items with more space */
-    }
-  }
-  
-  /* Extra large screens */
-  @media (min-width: 1441px) {
-    .react-multi-carousel-item {
-      width: 15% !important; /* Smaller width to fit more items */
-    }
-  }
 
   .view-all-books{
     display: flex;

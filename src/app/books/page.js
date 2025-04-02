@@ -27,45 +27,33 @@ export default function Books() {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1280 },
-      items: 4,
+      items: 6,
     },
     desktop: {
       breakpoint: { max: 1280, min: 1024 },
-      items: 3,
+      items: 6,
     },
     tablet: {
       breakpoint: { max: 1024, min: 640 },
-      items: 2,
+      items: 4,
     },
     mobile: {
       breakpoint: { max: 640, min: 0 },
       items: 2,
+      showDots: false,
     },
   };
 
   return (
     <div className="pt-4 w-full overflow-hidden">
-      <Carousel
-        responsive={responsive}
-        infinite={false} // Set to true if you want it to loop
-        autoPlay={false}
-        keyBoardControl
-        showDots={false}
-        arrows
-        customTransition="transform 300ms ease-in-out"
-        containerClass="carousel-container"
-        itemClass="m-0 p-0" // Adjust spacing between slides
-        removeArrowOnDeviceType={['tablet', 'mobile']} // Remove arrows on smaller screens
-        centerMode={false}
-        partialVisible={false}
-      >
+      <Carousel responsive={responsive} infinite={false} autoPlay={false} keyBoardControl arrows draggable centerMode={false} customTransition="transform 300ms ease-in-out" containerClass="carousel-container" itemClass="m-0 p-0" removeArrowOnDeviceType={['mobile']} slidesToSlide={2} minimumTouchDrag={2}>
         {popularBooks.map((book) => (
           <CarouselBooksCard key={book.id} bookObj={book} />
         ))}
       </Carousel>
       <div className="view-all-books">
         {books?.map((book) => (
-          <BrowseBooksCard bookObj={book} />
+          <BrowseBooksCard key={book.id} bookObj={book} />
         ))}
       </div>
     </div>
