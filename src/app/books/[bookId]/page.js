@@ -3,14 +3,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/utils/context/authContext';
 import { getSingleBook } from '../../../api/BookData';
+import { deleteReview } from '../../../api/ReviewData';
 
 export default function BookDetail() {
   const [book, setBook] = useState({});
   const { bookId } = useParams();
+  const { user } = useAuth();
 
   const getBook = () => {
     getSingleBook(bookId).then(setBook);
+  };
+
+  const handleDelete = (reviewId) => {
+    deleteReview(reviewId).then(getBook);
   };
 
   useEffect(() => {
@@ -44,7 +51,16 @@ export default function BookDetail() {
         </div>
         <div className="users-reviews">
           {book.reviews?.map((review) => (
-            <p>{review.content}</p>
+            <div key={review.id}>
+              <p>{review.content}</p>
+              {review.user.id === user.id && (
+                <div>
+                  <button type="button" onClick={() => handleDelete(review.id)}>
+                    delete
+                  </button>
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </div>
