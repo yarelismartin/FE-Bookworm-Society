@@ -50,7 +50,7 @@ export default function BookDetail() {
         <div className="filter-by-rating">
           <p>1 -5 star filter with the percentage showcases beside the start line</p>
         </div>
-        <div className="users-reviews">
+        <div className="users-reviews ">
           {book.reviews?.map((review) => (
             <ReviewCard reviewObj={review} />
           ))}

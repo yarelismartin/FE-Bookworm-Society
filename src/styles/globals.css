@@ -254,3 +254,11 @@ html {
   text-overflow: ellipsis;
   }
   
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+
+  .users-reviews {
+    position: relative;
+    overflow: visible; /* This allows the dropdown to be shown outside of any overflow constraints */
+  }
