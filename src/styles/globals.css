@@ -258,7 +258,21 @@ html {
     display: none !important;
   }
 
-  .users-reviews {
-    position: relative;
-    overflow: visible; /* This allows the dropdown to be shown outside of any overflow constraints */
+
+  .ResponsiveImage {
+    display: block;
+    height: auto;
+    width: 100%
+}
+
+
+
+/* the first 3 lines are what allows the book to be static while the right side of the page is still scrollable */
+@media (min-width: 768px) {
+  .left-book-image-container {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    padding: 5px;
   }
+}

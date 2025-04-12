@@ -1,8 +1,9 @@
 import { Card, CardHeader, CardBody, Typography, Avatar } from '@material-tailwind/react';
 import PropTypes from 'prop-types';
+import { useAuth } from '@/utils/context/authContext';
 import ReviewDropDown from '../ReviewDropDown';
-/* import { deleteReview } from '../../api/ReviewData';
- */
+import { deleteReview } from '../../api/ReviewData';
+
 function StarIcon({ className = '' }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`h-[18px] w-[18px] ${className}`}>
@@ -15,7 +16,8 @@ StarIcon.propTypes = {
   className: PropTypes.string.isRequired,
 };
 
-export default function ReviewCard({ reviewObj }) {
+export default function ReviewCard({ reviewObj, onUpdate }) {
+  const { user } = useAuth();
   const formattedDate = new Date(reviewObj.createdDate).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -23,12 +25,12 @@ export default function ReviewCard({ reviewObj }) {
   });
 
   const handleDelete = (reviewId) => {
-    /* deleteReview(reviewId).then(getBook); */
-    console.log(reviewId);
+    deleteReview(reviewId).then(onUpdate);
   };
 
   return (
-    <Card color="transparent" shadow={false} className="w-full max-w-[26rem]">
+    <Card color="transparent" shadow={false} className="w-full">
+      <hr />
       <CardHeader color="transparent" floated={false} shadow={false} className="mx-0 flex items-center gap-4 pt-0 pb-8">
         <Avatar size="lg" variant="circular" src={reviewObj.user.imageUrl} alt="tania andrew" />
         <div className="flex w-full flex-col gap-0.5">
@@ -36,7 +38,7 @@ export default function ReviewCard({ reviewObj }) {
             <Typography variant="h5" color="blue-gray">
               {reviewObj.user.username}
             </Typography>
-            <ReviewDropDown onDelete={() => handleDelete(reviewObj.id)} /> {/* Passing onDelete prop to Dropdown */}
+            {user.id === reviewObj.user.id && <ReviewDropDown onDelete={() => handleDelete(reviewObj.id)} />}
           </div>
           <div className="flex items-center justify-between">
             <Typography color="blue-gray" className="text-sm">
@@ -50,8 +52,8 @@ export default function ReviewCard({ reviewObj }) {
           </div>
         </div>
       </CardHeader>
-      <CardBody className="mb-6 p-0">
-        <Typography>&quot;{reviewObj.content}&quot;</Typography>
+      <CardBody className="mb-6 p-0 break-words">
+        <Typography className="break-words whitespace-normal">&quot;{reviewObj.content}&quot;</Typography>
       </CardBody>
     </Card>
   );
@@ -64,8 +66,10 @@ ReviewCard.propTypes = {
     createdDate: PropTypes.string,
     rating: PropTypes.number,
     user: PropTypes.shape({
+      id: PropTypes.number,
       imageUrl: PropTypes.string,
       username: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
