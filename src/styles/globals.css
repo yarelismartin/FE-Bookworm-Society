@@ -254,3 +254,33 @@ html {
   text-overflow: ellipsis;
   }
   
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+
+
+  .ResponsiveImage {
+    display: block;
+    height: auto;
+    width: 100%
+}
+
+
+
+/* the first 3 lines are what allows the book to be static while the right side of the page is still scrollable */
+@media (min-width: 768px) {
+  .left-book-image-container {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    padding: 5px;
+  }
+}
+.ql-container {
+  border: 1px dashed #c2c7cc;
+  background-color: #f9f9f9;
+}
+.optional-text {
+  color: #a0a0a0;  /* Light grey color */
+  font-style: italic; /* Optional: to make it stand out more */
+}

@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
-import getAllBooks from '../../api/BookData';
+import { getAllBooks } from '../../api/BookData';
 import { createVotingSession } from '../../api/VotingSessionData';
 
 export default function VotingSessionForm({ bookClubId, modalClose, onUpdate }) {
