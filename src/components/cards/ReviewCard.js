@@ -1,6 +1,8 @@
+/* eslint-disable react/no-array-index-key */
 import { Card, CardHeader, CardBody, Typography, Avatar } from '@material-tailwind/react';
 import PropTypes from 'prop-types';
 import { useAuth } from '@/utils/context/authContext';
+import DOMPurify from 'dompurify';
 import ReviewDropDown from '../ReviewDropDown';
 import { deleteReview } from '../../api/ReviewData';
 
@@ -35,7 +37,7 @@ export default function ReviewCard({ reviewObj, onUpdate }) {
         <Avatar size="lg" variant="circular" src={reviewObj.user.imageUrl} alt="tania andrew" />
         <div className="flex w-full flex-col gap-0.5">
           <div className="flex items-center justify-between">
-            <Typography variant="h5" color="blue-gray">
+            <Typography variant="h5" color="blue-gray" className="font-semibold">
               {reviewObj.user.username}
             </Typography>
             {user.id === reviewObj.user.id && <ReviewDropDown onDelete={() => handleDelete(reviewObj.id)} />}
@@ -46,14 +48,18 @@ export default function ReviewCard({ reviewObj, onUpdate }) {
             </Typography>
             <div className="5 flex items-center gap-0">
               {Array.from({ length: 5 }).map((_, i) => (
-                <StarIcon className={i < reviewObj.rating ? 'text-[#e87400]' : 'text-[#c2c7cc]'} />
+                <StarIcon key={`star-${reviewObj.id}-${i}`} className={i < reviewObj.rating ? 'text-[#e87400]' : 'text-[#c2c7cc]'} />
               ))}
             </div>
           </div>
         </div>
       </CardHeader>
       <CardBody className="mb-6 p-0 break-words">
-        <Typography className="break-words whitespace-normal">&quot;{reviewObj.content}&quot;</Typography>
+        <div
+          className="prose break-words whitespace-normal review-content text-[#424242]"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reviewObj.content) }}
+        />
       </CardBody>
     </Card>
   );

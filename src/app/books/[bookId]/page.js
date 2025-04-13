@@ -59,12 +59,10 @@ export default function BookDetail() {
 
     if (ratings.length === 0) {
       setBookRating(0);
-      console.log('No reviews, rating is 0');
     } else {
       const sum = ratings.reduce((acc, curr) => acc + curr, 0);
       const average = sum / ratings.length;
       setBookRating(average);
-      console.log('New average rating:', average);
     }
   };
 
@@ -88,22 +86,22 @@ export default function BookDetail() {
             <img src={book.imageUrl} alt="book_cover" className="w-full max-w-[200px] md:max-w-full object-contain book-card-cover rounded-tr-[15px] rounded-br-[3%] rounded-tl-none mb-2" />
           </div>
           <Link href={`/books/${bookId}/review/create`} passHref>
-            <p className="rate_book_link text-center font-semibold hover:underline mt-2 hover:text-[#e87400]">Rate This Book</p>
+            <p className="rate_book_link text-center font-normal hover:underline mt-2 hover:text-[#e87400]">Rate This Book</p>
           </Link>
         </div>
 
         {/* Right Column - Book Info */}
         <div className=" pt-0 col-span-1 md:col-span-4 lg:col-span-9">
-          <h2 className="text-4xl ">{book.title}</h2>
-          <h4 className="text-xl text-gray-700">{book.author} </h4>
+          <h2 className="text-4xl font-semibold sm:text-5xl">{book.title}</h2>
+          <h4 className="text-xl text-gray-900 sm:text-2xl">{book.author} </h4>
 
           <div className="flex items-center mt-2">
             <StarRatingDisplay rating={bookRating} />
             <p className="pl-2 text-2xl font-normal">{Number.parseFloat(bookRating).toFixed(2)}</p>
           </div>
 
-          <p className="mt-4 text-gray-800">{book.description}</p>
-          <p className="mt-2 text-sm font-medium text-gray-500 italic">{book.genre}</p>
+          <p className="mt-4 text-gray-800 text-[16px] lora-font  leading-relaxed">{book.description}</p>
+          <p className="mt-2 text-md font-medium text-gray-500 italic">{book.genre}</p>
 
           {/* Reviews */}
           <div id="reviews" className="mt-10">

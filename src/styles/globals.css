@@ -276,3 +276,11 @@ html {
     padding: 5px;
   }
 }
+.ql-container {
+  border: 1px dashed #c2c7cc;
+  background-color: #f9f9f9;
+}
+.optional-text {
+  color: #a0a0a0;  /* Light grey color */
+  font-style: italic; /* Optional: to make it stand out more */
+}
