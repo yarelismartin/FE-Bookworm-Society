@@ -56,7 +56,7 @@ export default function ReviewCard({ reviewObj, onUpdate }) {
       </CardHeader>
       <CardBody className="mb-6 p-0 break-words">
         <div
-          className="prose break-words whitespace-normal review-content text-[#424242]"
+          className="prose break-words whitespace-normal review-content text-[#424242] lora-font"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reviewObj.content) }}
         />

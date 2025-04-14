@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
+import Link from 'next/link';
 import { getAllBooks, getPopularBooks } from '../../api/BookData';
 import BrowseBooksCard from '../../components/cards/BrowseBooksCard';
 import 'react-multi-carousel/lib/styles.css';
@@ -48,12 +49,16 @@ export default function Books() {
     <div className="pt-4 w-full overflow-hidden">
       <Carousel responsive={responsive} infinite={false} autoPlay={false} keyBoardControl arrows draggable centerMode={false} customTransition="transform 300ms ease-in-out" containerClass="carousel-container" itemClass="m-0 p-0" removeArrowOnDeviceType={['mobile']} slidesToSlide={2} minimumTouchDrag={2}>
         {popularBooks.map((book) => (
-          <CarouselBooksCard key={book.id} bookObj={book} />
+          <Link href={`/books/${book.id}`} passHref>
+            <CarouselBooksCard key={book.id} bookObj={book} />
+          </Link>
         ))}
       </Carousel>
       <div className="view-all-books">
         {books?.map((book) => (
-          <BrowseBooksCard key={book.id} bookObj={book} />
+          <Link href={`/books/${book.id}`} passHref>
+            <BrowseBooksCard key={book.id} bookObj={book} />
+          </Link>
         ))}
       </div>
     </div>

@@ -33,7 +33,7 @@ export default function ReviewDropDown({ onDelete }) {
         ...
       </div>
       {isOpen && (
-        <ul className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow cursor-pointer">
+        <ul className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 cursor-pointer shadow-sm">
           <li>
             <button type="button" onClick={handleDelete}>
               Delete
