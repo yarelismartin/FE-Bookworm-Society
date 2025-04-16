@@ -85,9 +85,13 @@ export default function BookDetail() {
           <div className="book-image">
             <img src={book.imageUrl} alt="book_cover" className="w-full max-w-[200px] md:max-w-full object-contain book-card-cover rounded-tr-[15px] rounded-br-[3%] rounded-tl-none mb-2" />
           </div>
-          <Link href={`/books/${bookId}/review/create`} passHref>
-            <p className="rate_book_link text-center font-normal hover:underline mt-2 hover:text-[#e87400]">Rate This Book</p>
-          </Link>
+          <div className="w-full flex justify-center mt-4">
+            <Link href={`/books/${bookId}/review/create`} passHref>
+              <button type="button" className="rounded px-4 py-2 bg-blue-100 text-[#497dcb] hover:bg-[#497dcb] hover:text-white transition shadow-md">
+                Rate This Book
+              </button>
+            </Link>
+          </div>
         </div>
 
         {/* Right Column - Book Info */}

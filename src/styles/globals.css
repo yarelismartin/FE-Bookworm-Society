@@ -211,7 +211,7 @@ html {
     justify-content: center; 
   }
 
-  @media (max-width: 380px) {
+  @media (max-width: 447px) {
     .view-all-books {
       flex-wrap:nowrap;
       flex-direction: column;
@@ -237,8 +237,8 @@ html {
     .book-wrapper img {
       object-fit: cover;
       width: 100%;
-      height: auto;
-    }
+/*       height: auto;
+ */    }
   
     .book-wrapper .p-2 {
       flex: 1; /* Let text area take up the remaining space */
