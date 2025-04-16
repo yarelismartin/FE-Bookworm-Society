@@ -13,7 +13,7 @@ export default function Books() {
   const [popularBooks, setPopularBooks] = useState([]);
 
   const getBooks = () => {
-    getAllBooks(1, 10).then((b) => setBooks(b.items));
+    getAllBooks(1, 20).then((b) => setBooks(b.items));
   };
 
   const getPopular = () => {
@@ -35,11 +35,11 @@ export default function Books() {
       items: 5,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 640 },
+      breakpoint: { max: 1139, min: 716 },
       items: 4,
     },
     mobile: {
-      breakpoint: { max: 640, min: 0 },
+      breakpoint: { max: 715, min: 0 },
       items: 2,
       showDots: false,
     },
