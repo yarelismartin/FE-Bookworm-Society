@@ -7,13 +7,20 @@ import { getAllBooks, getPopularBooks } from '../../api/BookData';
 import BrowseBooksCard from '../../components/cards/BrowseBooksCard';
 import 'react-multi-carousel/lib/styles.css';
 import CarouselBooksCard from '../../components/cards/CarouselBookCard';
+import Pagination from '../../components/Pagination';
 
 export default function Books() {
+  const [activePage, setActivePage] = useState(1);
   const [books, setBooks] = useState([]);
   const [popularBooks, setPopularBooks] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 5;
 
   const getBooks = () => {
-    getAllBooks(1, 20).then((b) => setBooks(b.items));
+    getAllBooks(activePage, itemsPerPage).then((b) => {
+      setBooks(b.items);
+      setTotalPages(Math.ceil(b.totalCount / itemsPerPage));
+    });
   };
 
   const getPopular = () => {
@@ -23,7 +30,7 @@ export default function Books() {
   useEffect(() => {
     getBooks();
     getPopular();
-  }, []);
+  }, [activePage]);
 
   const responsive = {
     superLargeDesktop: {
@@ -60,6 +67,9 @@ export default function Books() {
             <BrowseBooksCard key={book.id} bookObj={book} />
           </Link>
         ))}
+      </div>
+      <div className="flex justify-center">
+        <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
       </div>
     </div>
   );
