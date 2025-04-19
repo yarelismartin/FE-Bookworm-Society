@@ -3,7 +3,7 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 /* import { useAuth } from '@/utils/context/authContext';
@@ -44,8 +44,20 @@ export default function BookDetail() {
   const [book, setBook] = useState({});
   const { bookId } = useParams();
   const [bookRating, setBookRating] = useState(0);
-  /*   const { user } = useAuth();
-   */
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (el) {
+      // Defer measurement to the next render cycle
+      requestAnimationFrame(() => {
+        setIsOverflowing(el.scrollHeight > el.clientHeight);
+      });
+    }
+  }, [book.description]);
+
   const getBook = () => {
     getSingleBook(bookId).then(setBook);
   };
@@ -104,10 +116,23 @@ export default function BookDetail() {
             <p className="pl-2 text-2xl font-normal">{Number.parseFloat(bookRating).toFixed(2)}</p>
           </div>
 
-          <p className="mt-4 text-gray-800 text-[16px] lora-font  leading-relaxed">{book.description}</p>
-          <p className="mt-2 text-md font-medium text-gray-500 italic">{book.genre}</p>
+          <div className="relative">
+            <div ref={contentRef} className={`transition-all overflow-hidden ${isExpanded ? 'max-h-full' : 'max-h-[8rem]'}`}>
+              <div>
+                {book.description?.split(/\r?\n\r?\n/).map((paragraph) => (
+                  <p key={paragraph} className="mt-4 text-gray-800 text-[16px] lora-font leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
 
-          {/* Reviews */}
+            {isOverflowing && (
+              <button type="button" className="mt-2 text-blue-600 font-semibold hover:underline" onClick={() => setIsExpanded(!isExpanded)}>
+                {isExpanded ? 'See less' : 'See more'}
+              </button>
+            )}
+          </div>
           <div id="reviews" className="mt-10">
             <h3 className="text-2xl font-normal mb-2">User Reviews</h3>
             {book.reviews?.length > 0 ? (
